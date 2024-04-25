@@ -5,20 +5,37 @@
     </head>
     <body>
         <canvas id="canvas"></canvas>
+        <div class="sliderBoxContainer">
         <div class="sliderBox">
-            <div class="centerItems">
-                <input id="cohesion" type="range" min="0" max="100" value="50">
-                <output id="cohesionOut">50</output>
+            <div class="sliderContainer">
+                <label for="cohesion">Cohesion:</label>
+                <input id="cohesion" type="range" min="0" max="100" value="20">
+                <output id="cohesionOut">20</output>
             </div>
-            <div class="centerItems">
-                <input id="separation" type="range" min="0" max="100" value="50">
+            <div class="sliderContainer">
+                <label for="separation">Separation:</label>
+                <input id="separation" type="range" min="0" max="500" value="50">
                 <output id="separationOut">50</output>
             </div>
-            <div class="centerItems">
-                <input id="alignment" type="range" min="0" max="100" value="50">
-                <output id="alignmentOut">50</output>
+            <div class="sliderContainer">
+                <label for="alignment">Alignment:</label>
+                <input id="alignment" type="range" min="0" max="400" value="300">
+                <output id="alignmentOut">300</output>
+            </div>
+            <div class="sliderContainer">
+                <label for="visionRange">Vision Range:</label>
+                <input id="visionRange" type="range" min="0" max="1000" value="200">
+                <output id="visionRangeOut">200</output>
+            </div>
+            <div class="sliderContainer">
+                <label for="protectedRange">Protected Range:</label>
+                <input id="protectedRange" type="range" min="0" max="800" value="100">
+                <output id="protectedRangeOut">100</output>
             </div>
         </div>
+    </div>
+        
+        
 
     </body>
     <script src = "vec.js"></script>

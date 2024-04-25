@@ -3,7 +3,7 @@ class Boid {
         this.pos = new Vec(x, y);
         this.vel = new Vec(Math.random() - 0.5, Math.random() - 0.5).mult(100);
 
-        this.visionRange = 2000;
+        this.visionRange = 200;
         this.protectedRange = 50;
 
         this.cohesionFactor = 50;
@@ -12,7 +12,7 @@ class Boid {
         this.turnFactor = 500;
         this.boostFactor = 1;
         this.maxSpeed = 500;
-        this.minSpeed = 50;
+        this.minSpeed = 100;
     }
 
     update(dt) {
@@ -130,7 +130,7 @@ Game = {}
 App.init = function() {
     App.canvas = document.getElementById("canvas");
     App.width = window.innerWidth;
-    App.height = window.innerHeight - 50;
+    App.height = window.innerHeight - 150;
     App.canvas.width = App.width;
     App.canvas.height = App.height;
     App.oldTimeStamp = 0;
@@ -142,7 +142,7 @@ App.init = function() {
     Graphics.fg = "black"
     Graphics.bg = "#776065"
 
-    Game.boidArray = Game.randomBoidArray(200);
+    Game.boidArray = Game.randomBoidArray(400);
     Game.marginWidth = 100;
     Game.cohesionFactor = 100;
     Game.alignmentFactor = 100;
@@ -159,20 +159,38 @@ App.initSliders = function() {
     let separationOut = document.getElementById("separationOut");
     let alignmentSlider = document.getElementById("alignment");
     let alignmentOut = document.getElementById("alignmentOut");
+    let visionRangeSlider = document.getElementById("visionRange");
+    let visionRangeOut = document.getElementById("visionRangeOut");
+    let protectedRangeSlider = document.getElementById("protectedRange");
+    let protectedRangeOut = document.getElementById("protectedRangeOut");
+
+    Game.cohesionFactor = cohesionSlider.value;
+    Game.alignmentFactor = alignmentSlider.value;
+    Game.separationFactor = separationSlider.value;
+    Game.visionRange = visionRangeSlider.value;
+    Game.protectedRange = protectedRangeSlider.value;
 
     cohesionSlider.addEventListener("input", function() {
-        separationOut.textContent = this.value;
-        Game.cohesionFactor = this.value;
-    })
-    separationSlider.addEventListener("input", function() {
         cohesionOut.textContent = this.value;
+        Game.cohesionFactor = this.value;
+    });
+    separationSlider.addEventListener("input", function() {
+        separationOut.textContent = this.value;
         Game.separationFactor = this.value;
-    })
+    });
     alignmentSlider.addEventListener("input", function() {
         alignmentOut.textContent = this.value;
         Game.alignmentFactor = this.value;
-    })
-}
+    });
+    visionRangeSlider.addEventListener("input", function() {
+        visionRangeOut.textContent = this.value;
+        Game.visionRange = this.value;
+    });
+    protectedRangeSlider.addEventListener("input", function() {
+        protectedRangeOut.textContent = this.value;
+        Game.protectedRange = this.value;
+    });
+};
 
 App.gameLoop = function(timeStamp) {
     App.dt = (timeStamp - App.oldTimeStamp);

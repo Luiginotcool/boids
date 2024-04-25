@@ -3,7 +3,7 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow:auto;
 }
 canvas {
     padding-left: 0;
@@ -17,20 +17,41 @@ canvas {
 
 .sliderBox {
     display: flex;
+    flex-wrap: wrap; /* Allow flex items to wrap onto multiple lines */
     justify-content: space-between;
     align-items: center;
-    width: 80%; /* Adjust as needed */
-    margin: 0 auto; /* Center the sliders horizontally */
+    width: 100%;
+    margin: 0 0;
+    height: 300px; /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
 
-.centerItems {
-    display: flex;
+.sliderContainer {
+    display: flex; /* Display children elements horizontally */
     align-items: center;
-    justify-content: center;
-    margin-bottom: 20px; /* Adjust as needed for spacing between sliders */
+    margin-bottom: 20px;
+    flex: 0 0 25%; /* Flex grow, flex shrink, flex basis */
 }
 
-/* Optional: Adjust slider width */
-.sliderBox input[type="range"] {
-    width: 200px; /* Adjust as needed */
+.sliderContainer label {
+    margin-right: 10px;
+}
+
+.sliderContainer input[type="range"] {
+    width: calc(100% - 100px); /* Adjust width to fit container */
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 600px) {
+    .sliderContainer {
+        flex-basis: 100%; /* Set flex basis to 100% for full width on smaller screens */
+    }
+}
+
+.sliderContainer {
+    margin: 4px, 4px;
+            padding: 4px;
+            overflow-x: hidden;
+            overflow-y: auto;
+
 }
