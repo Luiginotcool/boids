@@ -15,22 +15,30 @@ canvas {
     display: block;
 }
 
+.sliderBoxContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align sliders to the bottom of the container */
+    width: 100%;
+    height: auto;
+    padding-bottom: 20px; /* Add some padding to separate sliders from the bottom edge */
+}
+
 .sliderBox {
     display: flex;
-    flex-wrap: wrap; /* Allow flex items to wrap onto multiple lines */
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 0 0;
-    height: 300px; /* Set a fixed height */
-    overflow-y: auto; /* Enable vertical scrolling */
+    flex-wrap:wrap; /* Prevent sliders from wrapping */
+    justify-content: center;
+    align-items: flex-end; /* Align sliders to the bottom of the container */
 }
 
 .sliderContainer {
-    display: flex; /* Display children elements horizontally */
+    display: flex;
     align-items: center;
-    margin-bottom: 20px;
-    flex: 0 0 25%; /* Flex grow, flex shrink, flex basis */
+    margin-right: 20px; /* Add some space between sliders */
+}
+
+.sliderContainer:last-child {
+    margin-right: 0; /* Remove margin from the last slider to prevent extra space */
 }
 
 .sliderContainer label {
@@ -38,20 +46,9 @@ canvas {
 }
 
 .sliderContainer input[type="range"] {
-    width: calc(100% - 100px); /* Adjust width to fit container */
+    width: 200px;
 }
 
-/* Media query for smaller screens */
-@media screen and (max-width: 600px) {
-    .sliderContainer {
-        flex-basis: 100%; /* Set flex basis to 100% for full width on smaller screens */
-    }
-}
-
-.sliderContainer {
-    margin: 4px, 4px;
-            padding: 4px;
-            overflow-x: hidden;
-            overflow-y: auto;
-
+.sliderBoxContainer::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
 }
