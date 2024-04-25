@@ -1,0 +1,98 @@
+class Boid {
+    constructor(x, y) {
+        this.pos = new Vec(x, y);
+        this.vel = new Vec(Math.random() - 0.5, Math.random() - 0.5).mult(100);
+
+        this.visionRange = 200;
+        this.protectedRange = 50;
+
+        this.cohesionFactor = 0;
+        this.separationFactor = 1;
+        this.alignmentFactor = 50;
+        this.turnFactor = 100;
+    }
+
+    update(dt) {
+        let acc = this.getForce();
+        dt /= 1000;
+        this.pos = this.pos.add(this.vel.mult(dt).add(acc.mult(0.5 * (dt*dt)))); // s = ut + 0.5at^2
+        this.vel = this.vel.add(acc.mult(dt)); // v = u + at
+    }
+
+    draw() {
+        Graphics.fillRect(this.pos.x - 2.5, this.pos.y - 2.5, 5, 5)
+        Graphics.drawArrow(this.pos.x, this.pos.y, this.pos.x + this.force.x * 0.3, this.pos.y + this.force.y * 0.3);
+    }
+
+    getForce() {
+        let force = new Vec(0, 0);
+        force = force.add(this.cohesion());
+        force = force.add(this.separation());
+        force = force.add(this.alignment());
+        force = force.add(this.edges());
+        this.force = force
+        return force;
+    }
+
+    cohesion() {
+        let com = new Vec(0, 0);
+        let numInRange = 0;
+        for (let i = 0; i < Game.boidArray.length; i++) {
+            let boid = Game.boidArray[i];
+            let diff = this.pos.sub(boid.pos).abs();
+            if (diff.x < this.visionRange && diff.y < this.visionRange) {
+                com = com.add(boid.pos);
+                numInRange++;
+            }
+        }
+        com = com.div(numInRange).sub(this.pos).mult(this.cohesionFactor);
+        return com;
+    }
+
+    separation() {
+        let force = new Vec(0, 0);
+        let close = new Vec(0, 0);
+        for (let i = 0; i < Game.boidArray.length; i++) {
+            let boid = Game.boidArray[i];
+            let diff = this.pos.sub(boid.pos).abs();
+            if (diff.x < this.protectedRange && diff.y < this.protectedRange) {
+                close = close.add(this.pos.sub(boid.pos));
+            }
+        }
+        force = close.mult(this.separationFactor)
+        return force;
+    }
+
+    alignment() {
+        let motion = new Vec(this.vel.x, this.vel.y);
+        let numInRange = 0;
+        for (let i = 0; i < Game.boidArray.length; i++) {
+            let boid = Game.boidArray[i];
+            let diff = this.pos.sub(boid.pos).abs();
+            if (diff.x < this.visionRange && diff.y < this.visionRange) {
+                motion = motion.add(boid.vel);
+                numInRange++;
+            }
+        }
+        motion = motion.div(numInRange).sub(this.vel).norm().mult(this.alignmentFactor)
+        return motion;
+    }
+
+    edges() {
+        let force = new Vec(0, 0);
+        if (this.pos.x < Game.marginWidth) {
+            force = force.add(new Vec(this.turnFactor, 0));
+        }
+        if (this.pos.x > App.width - Game.marginWidth) {
+            force = force.add(new Vec(-this.turnFactor, 0));
+        }
+        if (this.pos.y < Game.marginWidth) {
+            force = force.add(new Vec(0, this.turnFactor))
+        }
+        if (this.pos.y > App.height - Game.marginWidth) {
+            force = force.add(new Vec(0, -this.turnFactor));
+        }
+
+        return force;
+    }
+}

@@ -1,0 +1,26 @@
+<htm>
+    <head>
+        <title>Boids</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <div class="sliderBox">
+            <div class="centerItems">
+                <input id="cohesion" type="range" min="0" max="100" value="50">
+                <output id="cohesionOut">50</output>
+            </div>
+            <div class="centerItems">
+                <input id="separation" type="range" min="0" max="100" value="50">
+                <output id="separationOut">50</output>
+            </div>
+            <div class="centerItems">
+                <input id="alignment" type="range" min="0" max="100" value="50">
+                <output id="alignmentOut">50</output>
+            </div>
+        </div>
+
+    </body>
+    <script src = "vec.js"></script>
+    <script src="app.js"></script>
+</htm>

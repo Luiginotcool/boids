@@ -1,0 +1,36 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;;
+    margin-bottom: 0px;;
+    display: block;
+}
+
+.sliderBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%; /* Adjust as needed */
+    margin: 0 auto; /* Center the sliders horizontally */
+}
+
+.centerItems {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px; /* Adjust as needed for spacing between sliders */
+}
+
+/* Optional: Adjust slider width */
+.sliderBox input[type="range"] {
+    width: 200px; /* Adjust as needed */
+}
